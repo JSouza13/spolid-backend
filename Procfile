@@ -1,1 +1,1 @@
-web: yarn start && yarn queue
+web: yarn build && yarn start

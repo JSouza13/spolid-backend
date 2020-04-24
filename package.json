@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "engines": {
+    "node": "12.16.x",
+    "yarn": "1.x"
+  },
   "scripts": {
     "dev": "nodemon src/server.js",
     "dev-queue": "nodemon src/queue.js",
     "eslint": "eslint --fix src --ext .js",
-    "start": "node src/server.js",
-    "queue": "node src/queue.js"
+    "build": "sucrase ./src -d ./dist --transforms imports",
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -26,6 +30,7 @@
     "pg": "^7.18.2",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.5",
+    "sucrase": "^3.13.0",
     "yarn": "^1.22.4",
     "yup": "^0.28.3"
   },
@@ -38,7 +43,6 @@
     "eslint-plugin-prettier": "^3.1.2",
     "nodemon": "^2.0.2",
     "prettier": "^2.0.2",
-    "sequelize-cli": "^5.5.1",
-    "sucrase": "^3.12.1"
+    "sequelize-cli": "^5.5.1"
   }
 }
