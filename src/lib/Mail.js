@@ -31,7 +31,7 @@ function configureTemplates() {
   );
 }
 
-export default async function sendForgotPassword(name, email, tokenTemp) {
+export async function sendForgotPassword(name, email, tokenTemp) {
   await configureTemplates();
 
   transporter
@@ -43,6 +43,28 @@ export default async function sendForgotPassword(name, email, tokenTemp) {
       context: {
         user: name,
         tokenTemp,
+        email,
+      },
+    })
+    .then(() => {
+      console.log('E-mail enviado');
+    })
+    .catch(() => {
+      console.log('E-mail não enviado');
+    });
+}
+
+export async function sendWelcome(name, email) {
+  await configureTemplates();
+
+  transporter
+    .sendMail({
+      to: `${name} <${email}>`,
+      from: mailConfig.default.from,
+      subject: 'Esqueci minha senha',
+      template: 'welcome',
+      context: {
+        user: name,
         email,
       },
     })

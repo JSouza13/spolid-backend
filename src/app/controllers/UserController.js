@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import { addHours } from 'date-fns';
 import * as Yup from 'yup';
 
-import sendForgotPassword from '../../lib/Mail';
+import { sendForgotPassword, sendWelcome } from '../../lib/Mail';
 import File from '../models/File';
 import User from '../models/User';
 
@@ -29,6 +29,7 @@ class UserController {
     const { id, name, email, provider } = await User.create(req.body);
 
     // await Queue.add(WelcomeMail.key, { name, email });
+    sendWelcome(name, email);
 
     return res.json({
       id,
