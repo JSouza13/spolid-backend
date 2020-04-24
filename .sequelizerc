@@ -5,7 +5,4 @@ module.exports = {
   'models-path': resolve(__dirname, 'src', 'app', 'models'),
   'migrations-path': resolve(__dirname, 'src', 'database', 'migrations'),
   'seeders-path': resolve(__dirname, 'src', 'database', 'seeds'),
-  'production': {
-    'use_env_variable': 'DATABASE_URL'
-  },
 };
