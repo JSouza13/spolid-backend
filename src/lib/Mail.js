@@ -1,19 +1,17 @@
 import exphbs from 'express-handlebars';
 import nodemailer from 'nodemailer';
 import nodemailerhbs from 'nodemailer-express-handlebars';
-import smtpTransport from 'nodemailer-smtp-transport';
 import { resolve } from 'path';
 
 import mailConfig from '../config/mail';
 
 class Mail {
   constructor() {
-    const { service, auth } = mailConfig;
+    const { auth } = mailConfig;
 
-    this.transporter = nodemailer.createTransport(smtpTransport, {
-      service,
-      auth: auth.user ? auth : null,
-    });
+    this.transporter = nodemailer.createTransport(
+      `smtps://${auth.user}%40gmail.com:${auth.pass}@smtp.gmail.com`
+    );
 
     this.configureTemplates();
   }
