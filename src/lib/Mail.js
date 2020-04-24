@@ -9,9 +9,9 @@ class Mail {
   constructor() {
     const { auth } = mailConfig;
 
-    this.transporter = nodemailer.createTransport(
-      `smtps://${auth.user}%40gmail.com:${auth.pass}@smtp.gmail.com`
-    );
+    this.transporter = nodemailer.createTransport({
+      auth: auth.user ? auth : null,
+    });
 
     this.configureTemplates();
   }

@@ -1,9 +1,7 @@
 export default {
   service: 'Gmail',
   auth: {
-    type: 'OAuth2',
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
+    api_key: process.env.SENDGRID_API_KEY,
   },
   default: {
     from: 'Equipe Spolid Academy <noreply@spolid.academy.com>',
