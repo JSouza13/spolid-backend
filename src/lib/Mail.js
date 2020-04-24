@@ -1,18 +1,21 @@
 import exphbs from 'express-handlebars';
 import nodemailer from 'nodemailer';
 import nodemailerhbs from 'nodemailer-express-handlebars';
+import nodemailerSendgrid from 'nodemailer-sendgrid';
 import { resolve } from 'path';
+import 'dotenv/config';
 
 import mailConfig from '../config/mail';
 
 class Mail {
   constructor() {
-    const { auth, service } = mailConfig;
+    const { apiKey } = mailConfig;
 
-    this.transporter = nodemailer.createTransport({
-      service,
-      auth: auth.user ? auth : null,
-    });
+    this.transporter = nodemailer.createTransport(
+      nodemailerSendgrid({
+        apiKey,
+      })
+    );
 
     this.configureTemplates();
   }
