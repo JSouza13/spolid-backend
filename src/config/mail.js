@@ -1,7 +1,8 @@
 export default {
-  service: 'Gmail',
+  service: 'Sendgrid',
   auth: {
-    api_key: process.env.SENDGRID_API_KEY,
+    user: process.env.SENDGRID_USERNAME,
+    pass: process.env.SENDGRID_PASSWORD,
   },
   default: {
     from: 'Equipe Spolid Academy <noreply@spolid.academy.com>',
