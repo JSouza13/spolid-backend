@@ -21,7 +21,7 @@ module.exports = {
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
     operatorsAliases: false,
-    use_env_variable: 'DATABASE_URL',
+    use_env_variable: process.env.DATABASE_URL,
     define: {
       timestamps: true,
       underscored: true,
