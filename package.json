@@ -9,14 +9,12 @@
   },
   "scripts": {
     "dev": "nodemon src/server.js",
-    "dev-queue": "nodemon src/queue.js",
     "eslint": "eslint --fix src --ext .js",
     "build": "sucrase ./src -d ./dist --transforms imports",
     "start": "node dist/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "bee-queue": "^1.2.3",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "date-fns": "^2.12.0",
@@ -28,7 +26,6 @@
     "nodemailer": "^6.4.6",
     "nodemailer-express-handlebars": "^4.0.0",
     "nodemailer-sendgrid": "^1.0.3",
-    "nodemailer-sendgrid-transport": "^0.2.0",
     "pg": "^8.0.3",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.7",
