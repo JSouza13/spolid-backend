@@ -22,6 +22,9 @@ module.exports = {
     database: process.env.DB_NAME,
     operatorsAliases: false,
     use_env_variable: process.env.DATABASE_URL,
+    dialectOptions: {
+      ssl: true,
+    },
     define: {
       timestamps: true,
       underscored: true,
