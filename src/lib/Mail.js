@@ -1,7 +1,7 @@
 import exphbs from 'express-handlebars';
 import nodemailer from 'nodemailer';
 import nodemailerhbs from 'nodemailer-express-handlebars';
-import nodemailerSendgrid from 'nodemailer-sendgrid';
+import nodemailerSendgrid from 'nodemailer-sendgrid-transport';
 import { resolve } from 'path';
 import 'dotenv/config';
 
@@ -9,11 +9,11 @@ import mailConfig from '../config/mail';
 
 class Mail {
   constructor() {
-    const { apiKey } = mailConfig;
+    const { auth } = mailConfig;
 
     this.transporter = nodemailer.createTransport(
       nodemailerSendgrid({
-        apiKey,
+        auth,
       })
     );
 
@@ -40,7 +40,7 @@ class Mail {
 
   sendMail(message) {
     return this.transporter.sendMail({
-      ...mailConfig.default,
+      ...mailConfig.default.from,
       ...message,
     });
   }

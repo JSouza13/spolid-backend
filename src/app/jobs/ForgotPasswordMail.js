@@ -1,3 +1,4 @@
+import mailConfig from '../../config/mail';
 import Mail from '../../lib/Mail';
 
 class ForgotPasswordMail {
@@ -10,6 +11,7 @@ class ForgotPasswordMail {
 
     await Mail.sendMail({
       to: `${user.name} <${email}>`,
+      from: mailConfig.default.from,
       subject: 'Esqueci minha senha',
       template: 'forgotPassword',
       context: {
