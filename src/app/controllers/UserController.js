@@ -42,6 +42,7 @@ class UserController {
   async update(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string(),
+      provider: Yup.boolean(),
       oldPassword: Yup.string().min(6),
       password: Yup.string()
         .min(6)
@@ -85,7 +86,7 @@ class UserController {
 
     await user.update(req.body);
 
-    const { id, name, email: NewEmail, avatar } = await User.findByPk(
+    const { id, name, email: NewEmail, avatar, provider } = await User.findByPk(
       req.userId,
       {
         include: [
@@ -101,6 +102,7 @@ class UserController {
     return res.json({
       id,
       name,
+      provider,
       email: NewEmail,
       avatar,
     });
