@@ -141,6 +141,6 @@ Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para
 
 #### Feito com :blue_heart: by JSouza :wave: [Entre em contato!](mailto:jooao_souza@hotmail.com)
 
-![João Vitor de Souza](https://img.shields.io/badge/LinkedIn-Jsouza-0e76a8?style=flat&logoColor=white&logo=linkedin)
+[![João Vitor de Souza](https://img.shields.io/badge/LinkedIn-Jsouza-0e76a8?style=flat&logoColor=white&logo=linkedin)](https://www.linkedin.com/in/joaovitor-souza/)
 
 </div>
