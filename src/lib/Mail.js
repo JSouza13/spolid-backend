@@ -2,16 +2,12 @@ import 'dotenv/config';
 import exphbs from 'express-handlebars';
 import nodemailer from 'nodemailer';
 import nodemailerhbs from 'nodemailer-express-handlebars';
-import nodemailerSendgrid from 'nodemailer-sendgrid';
+import sgTransport from 'nodemailer-sendgrid-transport';
 import { resolve } from 'path';
 
 import mailConfig from '../config/mail';
 
-const transporte = nodemailer.createTransport(
-  nodemailerSendgrid({
-    apiKey: mailConfig.auth.api_key,
-  })
-);
+const transporte = nodemailer.createTransport(sgTransport(mailConfig.auth));
 
 function configureTemplates() {
   const viewPath = resolve(__dirname, '..', 'app', 'views', 'emails');
