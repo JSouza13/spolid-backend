@@ -2,12 +2,16 @@ import 'dotenv/config';
 import exphbs from 'express-handlebars';
 import nodemailer from 'nodemailer';
 import nodemailerhbs from 'nodemailer-express-handlebars';
-import sgTransport from 'nodemailer-sendgrid-transport';
+import nodemailerSendgrid from 'nodemailer-sendgrid';
 import { resolve } from 'path';
 
 import mailConfig from '../config/mail';
 
-const transporte = nodemailer.createTransport(sgTransport(mailConfig.auth));
+const transporte = nodemailer.createTransport(
+  nodemailerSendgrid({
+    apiKey: process.env.SENDGRID_API_KEY,
+  })
+);
 
 function configureTemplates() {
   const viewPath = resolve(__dirname, '..', 'app', 'views', 'emails');
@@ -42,11 +46,23 @@ export async function sendForgotPassword(name, email, tokenTemp) {
         email,
       },
     })
-    .then(() => {
-      console.log('E-mail enviado');
+    .then(([res]) => {
+      console.log(
+        'Message delivered with code %s %s',
+        res.statusCode,
+        res.statusMessage
+      );
     })
-    .catch(() => {
-      console.log('E-mail não enviado');
+    .catch((err) => {
+      console.log('Errors occurred, failed to deliver message');
+
+      if (err.response && err.response.body && err.response.body.errors) {
+        err.response.body.errors.forEach((error) =>
+          console.log('%s: %s', error.field, error.message)
+        );
+      } else {
+        console.log(err);
+      }
     });
 }
 
@@ -64,10 +80,22 @@ export async function sendWelcome(name, email) {
         email,
       },
     })
-    .then(() => {
-      console.log('E-mail enviado');
+    .then(([res]) => {
+      console.log(
+        'Message delivered with code %s %s',
+        res.statusCode,
+        res.statusMessage
+      );
     })
-    .catch(() => {
-      console.log('E-mail não enviado');
+    .catch((err) => {
+      console.log('Errors occurred, failed to deliver message');
+
+      if (err.response && err.response.body && err.response.body.errors) {
+        err.response.body.errors.forEach((error) =>
+          console.log('%s: %s', error.field, error.message)
+        );
+      } else {
+        console.log(err);
+      }
     });
 }
