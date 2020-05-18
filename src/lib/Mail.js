@@ -7,16 +7,16 @@ import { resolve } from 'path';
 
 import mailConfig from '../config/mail';
 
-const transporter = nodemailer.createTransport(
+const transporte = nodemailer.createTransport(
   nodemailerSendgrid({
-    apiKey: process.env.SENDGRID_API_KEY,
+    apiKey: mailConfig.auth.api_key,
   })
 );
 
 function configureTemplates() {
   const viewPath = resolve(__dirname, '..', 'app', 'views', 'emails');
 
-  transporter.use(
+  transporte.use(
     'compile',
     nodemailerhbs({
       viewEngine: exphbs.create({
@@ -34,10 +34,10 @@ function configureTemplates() {
 export async function sendForgotPassword(name, email, tokenTemp) {
   await configureTemplates();
 
-  transporter
+  transporte
     .sendMail({
-      to: `${name} <${email}>`,
       from: mailConfig.default.from,
+      to: `${name} <${email}>`,
       subject: 'Esqueci minha senha',
       template: 'forgotPassword',
       context: {
@@ -57,10 +57,10 @@ export async function sendForgotPassword(name, email, tokenTemp) {
 export async function sendWelcome(name, email) {
   await configureTemplates();
 
-  transporter
+  transporte
     .sendMail({
-      to: `${name} <${email}>`,
       from: mailConfig.default.from,
+      to: `${name} <${email}>`,
       subject: 'Esqueci minha senha',
       template: 'welcome',
       context: {
