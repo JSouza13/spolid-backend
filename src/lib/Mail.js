@@ -73,7 +73,7 @@ export async function sendWelcome(name, email) {
     .sendMail({
       from: mailConfig.default.from,
       to: `${name} <${email}>`,
-      subject: 'Esqueci minha senha',
+      subject: 'Bem-vindo',
       template: 'welcome',
       context: {
         user: name,
