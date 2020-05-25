@@ -12,7 +12,6 @@ class Enrollment extends Model {
         sequelize,
       }
     );
-
     return this;
   }
 

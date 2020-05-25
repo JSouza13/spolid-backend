@@ -23,7 +23,6 @@ class User extends Model {
         user.password_hash = await bcrypt.hash(user.password, 8);
       }
     });
-
     return this;
   }
 

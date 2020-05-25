@@ -1,9 +1,36 @@
 import * as Yup from 'yup';
 
 import Course from '../models/Course';
+import File from '../models/File';
 import User from '../models/User';
 
 class CourseController {
+  async index(req, res) {
+    const perPage = 3;
+    const { page = 1 } = req.query;
+
+    const courses = await Course.findAll({
+      where: { provider_id: req.userId },
+      order: [['createdAt', 'ASC']],
+      attributes: [
+        'id',
+        'title',
+        'description',
+        'value',
+        'createdAt',
+        'updatedAt',
+      ],
+      limit: perPage,
+      offset: (page - 1) * perPage,
+      include: [
+        { model: File, as: 'image', attributes: ['id', 'path', 'url'] },
+        { model: File, as: 'video', attributes: ['id', 'path', 'url'] },
+        { model: User, as: 'intructor', attributes: ['id', 'name', 'email'] },
+      ],
+    });
+    res.json(courses);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       title: Yup.string().required(),

@@ -1,6 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 
-class Assisted_class extends Model {
+class User_class extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -10,7 +10,6 @@ class Assisted_class extends Model {
         sequelize,
       }
     );
-
     return this;
   }
 
@@ -19,7 +18,11 @@ class Assisted_class extends Model {
       foreignKey: 'enrollment_id',
       as: 'enrollment',
     });
+    this.belongsTo(models.Class, {
+      foreignKey: 'class_id',
+      as: 'class',
+    });
   }
 }
 
-export default Assisted_class;
+export default User_class;

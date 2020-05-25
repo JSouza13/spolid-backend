@@ -28,5 +28,6 @@ routes.post('/files', upload.single('file'), FileController.store);
 routes.get('/providers', ProviderController.index);
 
 routes.post('/courses', CourseController.store);
+routes.get('/courses', CourseController.index);
 
 export default routes;
