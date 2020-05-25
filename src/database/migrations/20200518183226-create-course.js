@@ -26,11 +26,6 @@ module.exports = {
         type: Sequelize.DECIMAL,
         allowNull: false,
       },
-      complete: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-        allowNull: false,
-      },
       image_id: {
         type: Sequelize.INTEGER,
         references: { model: 'files', key: 'id' },

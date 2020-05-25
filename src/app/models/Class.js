@@ -6,8 +6,6 @@ class Class extends Model {
       {
         title: Sequelize.STRING,
         video_url: Sequelize.STRING,
-        watched: Sequelize.BOOLEAN,
-        played: Sequelize.DOUBLE,
       },
       {
         sequelize,

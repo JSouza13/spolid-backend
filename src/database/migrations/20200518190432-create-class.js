@@ -22,16 +22,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      watched: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-        allowNull: false,
-      },
-      played: {
-        type: Sequelize.DOUBLE,
-        defaultValue: 0,
-        allowNull: false,
-      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,

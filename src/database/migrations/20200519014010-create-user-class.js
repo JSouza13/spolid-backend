@@ -21,8 +21,15 @@ module.exports = {
         onDelete: 'CASCADE',
         allowNull: false,
       },
-      progress: {
+      played: {
         type: Sequelize.DOUBLE,
+        defaultValue: 0,
+        allowNull: false,
+      },
+      watched: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
       },
       created_at: {
         allowNull: false,

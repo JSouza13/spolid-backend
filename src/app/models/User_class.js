@@ -4,7 +4,8 @@ class User_class extends Model {
   static init(sequelize) {
     super.init(
       {
-        progress: Sequelize.DOUBLE,
+        played: Sequelize.DOUBLE,
+        watched: Sequelize.BOOLEAN,
       },
       {
         sequelize,
