@@ -1,6 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 
-class User_class extends Model {
+class User_lesson extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -19,11 +19,11 @@ class User_class extends Model {
       foreignKey: 'enrollment_id',
       as: 'enrollment',
     });
-    this.belongsTo(models.Class, {
-      foreignKey: 'class_id',
-      as: 'class',
+    this.belongsTo(models.Lesson, {
+      foreignKey: 'lesson_id',
+      as: 'lesson',
     });
   }
 }
 
-export default User_class;
+export default User_lesson;

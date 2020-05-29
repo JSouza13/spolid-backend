@@ -3,6 +3,7 @@ import multer from 'multer';
 
 import CourseController from './app/controllers/CourseController';
 import FileController from './app/controllers/FileController';
+import LessonController from './app/controllers/LessonController';
 import ProviderController from './app/controllers/ProviderController';
 import SessionController from './app/controllers/SessionController';
 import UserController from './app/controllers/UserController';
@@ -29,5 +30,7 @@ routes.get('/providers', ProviderController.index);
 
 routes.post('/courses', CourseController.store);
 routes.get('/courses', CourseController.index);
+
+routes.post('/courses/:id/lesson', LessonController.store);
 
 export default routes;

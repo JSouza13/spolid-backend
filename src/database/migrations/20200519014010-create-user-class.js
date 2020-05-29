@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('user_classes', {
+    return queryInterface.createTable('user_lessons', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,9 +14,9 @@ module.exports = {
         onDelete: 'CASCADE',
         allowNull: false,
       },
-      class_id: {
+      lesson_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'classes', key: 'id' },
+        references: { model: 'lessons', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         allowNull: false,
@@ -42,6 +42,6 @@ module.exports = {
     });
   },
   down: (queryInterface) => {
-    return queryInterface.dropTable('user_classes');
+    return queryInterface.dropTable('user_lessons');
   },
 };

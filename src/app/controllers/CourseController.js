@@ -6,7 +6,7 @@ import User from '../models/User';
 
 class CourseController {
   async index(req, res) {
-    const perPage = 3;
+    const perPage = 10;
     const { page = 1 } = req.query;
 
     const courses = await Course.findAll({
@@ -33,9 +33,13 @@ class CourseController {
 
   async store(req, res) {
     const schema = Yup.object().shape({
-      title: Yup.string().required(),
-      description: Yup.string().required(),
-      value: Yup.number().required(),
+      title: Yup.string()
+        .max(30, 'O Título precisa ter no máximo 30 caracteres')
+        .required('Título deve ser informado'),
+      description: Yup.string()
+        .max(300, 'A descrição pode ter no máximo 300 caracteres')
+        .required('Descrição deve ser informada'),
+      value: Yup.string().required('Preço deve ser informado'),
     });
 
     if (!(await schema.isValid(req.body))) {

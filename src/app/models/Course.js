@@ -7,7 +7,6 @@ class Course extends Model {
         title: Sequelize.STRING,
         description: Sequelize.STRING,
         value: Sequelize.DECIMAL,
-        complete: Sequelize.BOOLEAN,
       },
       {
         sequelize,
