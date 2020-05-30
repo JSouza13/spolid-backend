@@ -18,15 +18,22 @@ class UserController {
       return res.status(400).json({ error: 'Falha na validação' });
     }
 
-    const userExists = await User.findOne({ where: { email: req.body.email } });
+    const { name, email, provider, password } = req.body;
 
+    const userExists = await User.findOne({ where: { email } });
     if (userExists) {
       return res
         .status(400)
         .json({ error: 'E-mail de usuário já cadastrado.' });
     }
 
-    const { id, name, email, provider } = await User.create(req.body);
+    const { id, points_cash } = await User.create({
+      name,
+      email,
+      provider,
+      password,
+      points_cash: 250,
+    });
 
     // await Queue.add(WelcomeMail.key, { name, email });
     sendWelcome(name, email);
@@ -36,6 +43,7 @@ class UserController {
       name,
       email,
       provider,
+      points_cash,
     });
   }
 

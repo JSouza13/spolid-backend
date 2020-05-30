@@ -7,11 +7,13 @@ class User extends Model {
       {
         name: Sequelize.STRING,
         email: Sequelize.STRING,
+        points_cash: Sequelize.INTEGER,
         password: Sequelize.VIRTUAL,
         password_hash: Sequelize.STRING,
         provider: Sequelize.BOOLEAN,
         password_reset_token: Sequelize.STRING,
         password_reset_expires: Sequelize.DATE,
+        last_login: Sequelize.DATE,
       },
       {
         sequelize,
