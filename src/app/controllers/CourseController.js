@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import * as Yup from 'yup';
 
 import Course from '../models/Course';
@@ -6,29 +7,57 @@ import User from '../models/User';
 
 class CourseController {
   async index(req, res) {
-    const perPage = 10;
-    const { page = 1 } = req.query;
+    const {
+      currentPage = 1,
+      perPage = 10,
+      search = '',
+      showAll = false,
+    } = req.query;
 
-    const courses = await Course.findAll({
-      where: { provider_id: req.userId },
-      order: [['createdAt', 'ASC']],
-      attributes: [
-        'id',
-        'title',
-        'description',
-        'value',
-        'createdAt',
-        'updatedAt',
-      ],
-      limit: perPage,
-      offset: (page - 1) * perPage,
+    let courses = [];
+
+    if (showAll) {
+      courses = await Course.findAll({
+        where: { title: { [Op.like]: `%${search}%` } },
+        include: [
+          { model: File, as: 'image', attributes: ['id', 'path', 'url'] },
+          { model: File, as: 'video', attributes: ['id', 'path', 'url'] },
+          { model: User, as: 'intructor', attributes: ['id', 'name', 'email'] },
+        ],
+        order: [['createdAt']],
+      });
+    } else {
+      courses = await Course.findAll({
+        where: { title: { [Op.like]: `%${search}%` } },
+        include: [
+          { model: File, as: 'image', attributes: ['id', 'path', 'url'] },
+          { model: File, as: 'video', attributes: ['id', 'path', 'url'] },
+          { model: User, as: 'intructor', attributes: ['id', 'name', 'email'] },
+        ],
+        order: [['createdAt']],
+        limit: perPage,
+        offset: (currentPage - 1) * perPage,
+      });
+    }
+
+    res.json(courses);
+  }
+
+  async show(req, res) {
+    const course = await Course.findOne({
+      where: { id: req.params.id },
       include: [
         { model: File, as: 'image', attributes: ['id', 'path', 'url'] },
         { model: File, as: 'video', attributes: ['id', 'path', 'url'] },
         { model: User, as: 'intructor', attributes: ['id', 'name', 'email'] },
       ],
     });
-    res.json(courses);
+
+    if (!course) {
+      return res.status(400).json({ error: 'Curso não cadastrado' });
+    }
+
+    return res.json(course);
   }
 
   async store(req, res) {

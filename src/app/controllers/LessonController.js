@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import * as Yup from 'yup';
 
 import Course from '../models/Course';
@@ -5,6 +6,41 @@ import Lesson from '../models/Lesson';
 import User from '../models/User';
 
 class LessonController {
+  async index(req, res) {
+    const {
+      currentPage = 0,
+      perPage = 10,
+      search = '',
+      showAll = false,
+    } = req.query;
+
+    let lessons = [];
+
+    if (showAll) {
+      lessons = await Lesson.findAll({
+        where: {
+          course_id: req.params.id,
+          title: { [Op.like]: `%${search}%` },
+        },
+        include: [{ model: Course, as: 'course', attributes: ['id'] }],
+        order: [['createdAt']],
+      });
+    } else {
+      lessons = await Lesson.findAll({
+        where: {
+          course_id: req.params.id,
+          title: { [Op.like]: `%${search}%` },
+        },
+        include: [{ model: Course, as: 'course', attributes: ['id'] }],
+        order: [['createdAt']],
+        limit: perPage,
+        offset: (currentPage - 1) * perPage,
+      });
+    }
+
+    res.json(lessons);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       title: Yup.string()
